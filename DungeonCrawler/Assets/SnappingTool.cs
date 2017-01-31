@@ -14,13 +14,25 @@ public class SnappingTool : MonoBehaviour {
     float y;
 
     bool locked = false;
+
+    public bool beingDragged = false;
     // Use this for initialization
     void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void UpdateSnap () {
+
+    void Update()
+    {
+            //beingDragged = false;
+            
+        if (beingDragged)
+        {
+            OnMouseDrag();
+        }
+    }
+    //Update is called once per frame
+
+    void UpdateSnap () {
 
         x = Input.mousePosition.x;
         y = Input.mousePosition.y;
@@ -49,15 +61,22 @@ public class SnappingTool : MonoBehaviour {
         }
        
 	}
-    void OnMouseDrag()
+    public void OnMouseDrag()
     {
+        Debug.Log("OnMouseDrag called");
         transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10.0f));
-
         UpdateSnap();
+        if (Input.GetMouseButtonUp(0))
+        {
+            OnMouseUp();
+        }
     }
 
-    private void OnMouseUp()
+    public void OnMouseUp()
     {
+        Debug.Log("OnMouseUp called");
+
+        beingDragged = false;
         if (!locked)
         {
             GameObject.Destroy(gameObject);
