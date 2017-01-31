@@ -13,6 +13,7 @@ public class SnappingTool : MonoBehaviour {
     float x;
     float y;
 
+    bool locked = false;
     // Use this for initialization
     void Start () {
 		
@@ -33,9 +34,15 @@ public class SnappingTool : MonoBehaviour {
                     snap != right &&
                     snap != bottom)
                 {
-                    if (Vector3.Distance(snap.transform.position, transform.position) < 1f)
+                    if (Vector3.Distance(snap.transform.position, transform.position) < .5f)
                     {
                         transform.position = snap.transform.position + snap.transform.localPosition;
+                        locked = true;
+                        break;
+                    }
+                    else
+                    {
+                        locked = false;
                     }
                 }
             }
@@ -45,7 +52,16 @@ public class SnappingTool : MonoBehaviour {
     void OnMouseDrag()
     {
         transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10.0f));
+
         UpdateSnap();
+    }
+
+    private void OnMouseUp()
+    {
+        if (!locked)
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
 }
 
