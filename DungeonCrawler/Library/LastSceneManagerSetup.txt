@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/LevelBuilder.unity
-  isLoaded: 1
-  isActive: 1
