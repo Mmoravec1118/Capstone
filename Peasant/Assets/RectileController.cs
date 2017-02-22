@@ -25,6 +25,10 @@ public class RectileController : MonoBehaviour
             if (hit.transform.tag == "Interact")
             {
                 Rectile.sprite = interactImage;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    hit.transform.SendMessage("Action");
+                }
             }
         }
         else
