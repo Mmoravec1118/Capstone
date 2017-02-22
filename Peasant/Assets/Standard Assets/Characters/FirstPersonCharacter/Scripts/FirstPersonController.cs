@@ -29,6 +29,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
         [SerializeField] private Animator animator;
+        public Animator bowAnimator;
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -112,6 +113,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (Input.GetMouseButtonDown(1))
             {
                 animator.SetTrigger("DrawBow");
+                bowAnimator.SetTrigger("DrawBow");                
             }
             // always move along the camera forward as it is the direction that it being aimed at
             Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
