@@ -108,6 +108,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 animator.SetBool("Running", false);
             }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                animator.SetTrigger("DrawBow");
+            }
             // always move along the camera forward as it is the direction that it being aimed at
             Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
 
