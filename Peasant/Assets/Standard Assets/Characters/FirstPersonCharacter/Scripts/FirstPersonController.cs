@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
@@ -28,9 +29,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
-        [SerializeField] private Animator animator;
-        public Animator bowAnimator;
-
+        [SerializeField] public Animator animator;
+        public bool hasBow = false;
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -110,10 +110,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 animator.SetBool("Running", false);
             }
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) && hasBow)
             {
                 animator.SetTrigger("DrawBow");
-                bowAnimator.SetTrigger("DrawBow");                
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("MainMenu");
             }
             // always move along the camera forward as it is the direction that it being aimed at
             Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
