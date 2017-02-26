@@ -30,7 +30,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
         [SerializeField] public Animator animator;
-        public bool hasBow = false;
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -108,11 +107,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             else
             {
                 animator.SetBool("Running", false);
-            }
-
-            if (Input.GetMouseButtonDown(1) && hasBow)
-            {
-                animator.SetTrigger("DrawBow");
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
