@@ -15,6 +15,9 @@ public class WraithNavigation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         nav.destination = target.position;
-
+        if (Vector3.Distance(transform.position, target.position) < 5)
+        {
+            //Player Died
+        }
     }
 }
