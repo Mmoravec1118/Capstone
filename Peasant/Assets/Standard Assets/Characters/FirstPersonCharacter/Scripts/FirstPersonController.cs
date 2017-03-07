@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
+using System.Collections;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -11,6 +12,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
+        [SerializeField] private Transform cameraFirst;
+        [SerializeField] private Transform cameraThird;
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -285,9 +288,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 animator.SetTrigger("Die");
                 canMove = false;
-                Camera.main.transform.position = new Vector3(Camera.main.transform.position.x - 1, Camera.main.transform.position.y + 1, Camera.main.transform.position.z - 1);
-                Camera.main.transform.LookAt(transform);
+                StartCoroutine("CameraLookAtPlayer");
+                
             }
+        }
+        
+        IEnumerator CameraLookAtPlayer()
+        {
+            GameObject.FindGameObjectWithTag("Rectile").SetActive(false);
+            float totalTime = 1.5f;
+            float elapsedTime = 0;
+            while (elapsedTime < totalTime)
+            {
+                elapsedTime += Time.fixedDeltaTime;
+                Camera.main.transform.position = Vector3.Lerp(cameraFirst.position, cameraThird.position, elapsedTime / totalTime);
+                Camera.main.transform.LookAt(transform);
+                yield return new WaitForFixedUpdate();
+            }
+            Camera.main.transform.position = cameraThird.position;
         }
         
         
