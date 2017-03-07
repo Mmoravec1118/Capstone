@@ -19,9 +19,9 @@ public class UILicense : MonoBehaviour {
 
     IEnumerator Grow()
     {
-        for (int i = 0; i < 300; i++)
+        for (int i = 0; i < 100; i++)
         {
-            GetComponent<RectTransform>().localScale += new Vector3(.0033f,.0033f);
+            GetComponent<RectTransform>().localScale += new Vector3(.01f,.01f);
             yield return null;
         }
         growDone = true;

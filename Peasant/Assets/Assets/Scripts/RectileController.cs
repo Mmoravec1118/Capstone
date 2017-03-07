@@ -30,6 +30,10 @@ public class RectileController : MonoBehaviour
                     hit.transform.SendMessage("Action");
                 }
             }
+            else
+            {
+                Rectile.sprite = defaultimage;
+            }
         }
         else
         {
